@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("Random")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("*1. 通过导入Excel文档(97-03)*.xls，文件获取学生名单(以首师大教务处名单格式为基准)，并在程序所在目录产生工程文件，使用照片请建立photos文件夹并以学号为文件名存储照片(jpg格式)。\r\n*2. 点名时请不要打开Excel，如果提示文件被占用，请在任务管理器中关闭Excel实例。\r\n*3. 导出报表会以课程名命名，复选框中选择要导出的日期。")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Random")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("40c1152f-3d15-4081-864d-46e1d9f11891")]
+[assembly: Guid("0dae96de-bd5d-4d8a-bb38-e47fef9b42f1")]
 
 // 程序集的版本信息由下面四个值组成: 
 //
