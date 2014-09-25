@@ -59,15 +59,5 @@ namespace Random.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
-        /// </summary>
-        public static System.Drawing.Icon img2 {
-            get {
-                object obj = ResourceManager.GetObject("img2", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
     }
 }
