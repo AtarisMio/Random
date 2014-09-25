@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Random")]
 [assembly: AssemblyDescription("*1. 通过导入Excel文档(97-03)*.xls，文件获取学生名单(以首师大教务处名单格式为基准)，并在程序所在目录产生工程文件，使用照片请建立photos文件夹并以学号为文件名存储照片(jpg格式)。\r\n*2. 点名时请不要打开Excel，如果提示文件被占用，请在任务管理器中关闭Excel实例。\r\n*3. 导出报表会以课程名命名，复选框中选择要导出的日期。")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("首都师范大学信息工程学院2012级")]
 [assembly: AssemblyProduct("Random")]
-[assembly: AssemblyCopyright("Copyright ©  2014")]
+[assembly: AssemblyCopyright("Copyright ©  2014 首都师范大学信息工程学院2012级")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值，
 // 方法是按如下所示使用“*”: 
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
