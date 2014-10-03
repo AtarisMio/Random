@@ -223,8 +223,8 @@ namespace Random
                 //form.absset(absence);
                 form.excelpath((fileselect.SelectedItem as ComboBoxItem).Value.ToString());
                 form.Owner = this;
-                this.Visible = false;
                 form.Show();
+                this.Visible = false;
             }
             if (num == 2)
             {
@@ -232,8 +232,8 @@ namespace Random
                 //form.absset(absence);
                 form.excelpath((fileselect.SelectedItem as ComboBoxItem).Value.ToString());
                 form.Owner = this;
-                this.Visible = false;
                 form.Show();
+                this.Visible = false;
             }
             if (num == 4)
             {
@@ -241,8 +241,8 @@ namespace Random
                 //form.absset(absence);
                 form.excelpath((fileselect.SelectedItem as ComboBoxItem).Value.ToString());
                 form.Owner = this;
-                this.Visible = false;
                 form.Show();
+                this.Visible = false;
             }
         }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:不要多次释放对象")]

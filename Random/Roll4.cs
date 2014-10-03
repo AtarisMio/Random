@@ -161,7 +161,7 @@ namespace Random
                 thd1 = new Thread(new ThreadStart(lantern));
                 thd1.Start();
                 start = true;
-                button1.Text = "停止随机";
+                button1.Text = "停";
                 flag = false;
             }
             else
@@ -172,7 +172,7 @@ namespace Random
                 checkBox3.Enabled = true;
                 checkBox4.Enabled = true;
                 flag = true;
-                button1.Text = "开始随机";
+                button1.Text = "点名";
             }
 
         }
@@ -198,18 +198,22 @@ namespace Random
                     int sn = namelist.Keys[(int)result[0]];
                     label1.Text = sn.ToString();
                     label2.Text = namelist[sn];
+                    label9.Text = "缺勤" + cell.getabsencenum(sn) + "次";
                     pictureBox1.LoadAsync(Application.StartupPath + @"/photos/" + sn + @".jpg");
                     sn = namelist.Keys[(int)result[1]];
                     label3.Text = sn.ToString();
                     label4.Text = namelist[sn];
+                    label10.Text = "缺勤" + cell.getabsencenum(sn) + "次";
                     pictureBox2.LoadAsync(Application.StartupPath + @"/photos/" + sn + @".jpg");
                     sn = namelist.Keys[(int)result[2]];
                     label5.Text = sn.ToString();
                     label6.Text = namelist[sn];
+                    label11.Text = "缺勤" + cell.getabsencenum(sn) + "次";
                     pictureBox3.LoadAsync(Application.StartupPath + @"/photos/" + sn + @".jpg");
                     sn = namelist.Keys[(int)result[3]];
                     label7.Text = sn.ToString();
                     label8.Text = namelist[sn];
+                    label12.Text = "缺勤" + cell.getabsencenum(sn) + "次";
                     pictureBox4.LoadAsync(Application.StartupPath + @"/photos/" + sn + @".jpg");
                 }
             }

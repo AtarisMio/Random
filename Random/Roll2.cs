@@ -129,7 +129,7 @@ namespace Random
                 checkBox1.Enabled = false;
                 checkBox2.Enabled = false;
                 start = true;
-                button1.Text = "停止随机";
+                button1.Text = "停";
                 thd1 = new Thread(new ThreadStart(lantern));
                 thd1.IsBackground = true;
                 thd1.Start();
@@ -141,7 +141,7 @@ namespace Random
                 checkBox1.Enabled = true;
                 checkBox2.Enabled = true;
                 flag = true;
-                button1.Text = "开始随机";
+                button1.Text = "点名";
             }
 
         }
