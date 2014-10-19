@@ -95,8 +95,8 @@ namespace Random
             
             this.pictureBox1.Dispose();
             this.pictureBox2.Dispose();
-            this.pictureBox3.Dispose();
             this.pictureBox4.Dispose();
+            this.pictureBox3.Dispose();
         }
 
         private void Roll4_Load(object sender, EventArgs e)

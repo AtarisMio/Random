@@ -205,9 +205,7 @@
   <ItemGroup>
     <EmbeddedResource Include="SteelSeries.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>C:\"Program Files (x86)"\Microsoft\ILMerge\ILMerge.exe /t:winexe /out:D:\Random.exe C:\Users\Lionpon\Documents\Visual~1\Projects\Random\Random\bin\Debug\Random.exe C:\Users\Lionpon\Documents\Visual~1\Projects\Random\Random\bin\Debug\Aspose.Cells.dll</PostBuildEvent>

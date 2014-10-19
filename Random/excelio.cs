@@ -71,11 +71,12 @@ namespace Random
             return namelist;
         }
 
-        public int getabsencenum(int sn)//得到学号为sn的学生缺勤次数
+        public int getabsencenum(int sn, int i = 9, int j = -1)//得到学号为sn的学生缺勤次数
         {
             int num = 0;
-            int row = find(sn)[0];
-            for (int i = 9; i < cells.MaxDataColumn; i++)
+            int row = 0;
+            row = find(sn)[0];
+            for (; i < (j == -1 ? cells.MaxDataColumn : j); i++)
             {
                 if (cells[row, i].StringValue == "A")
                     num++;
@@ -112,17 +113,18 @@ namespace Random
                 return cells.MaxDataRow - 5;
             return cells.MaxDataRow - 6;
         }
-        public ArrayList getabsstu(int Column)//得到第Column列中缺勤学生的列表
+        public ArrayList getabsstu(int Column, int k = 0, int j = -1)//得到第Column列中缺勤学生的列表
         {
             ArrayList result = new ArrayList();
-            for (int i = 6; i < cells.MaxDataRow;i++ )
+            for (int i = k; i < (j == -1 ? cells.MaxDataColumn : j); i++)
             {
-                if(cells[i,Column].StringValue=="A" )
+                if (cells[i, Column].StringValue == "A")
                 {
                     student std = new student();
                     std.Serial = int.Parse(cells[i, 1].StringValue);
                     std.Sn = int.Parse(cells[i, 2].StringValue);
                     std.Name = cells[i, 3].StringValue;
+                    std.Abs = getabsencenum(std.Sn, k, j);
                     result.Add(std);
                 }
             }
@@ -213,11 +215,11 @@ namespace Random
             cells = workbook.Worksheets[0].Cells;
             return this;
         }
-        public void sort()
+        public void sort(int key = 1)
         {
             DataSorter sorter = workbook.DataSorter;
             sorter.Order1 = Aspose.Cells.SortOrder.Ascending;
-            sorter.Key1 = 1;
+            sorter.Key1 = key;
             sorter.Sort(cells, 2, 0, cells.MaxDataRow, cells.MaxDataColumn);
         }
         public int[] find(int sn)//找到学号为sn的学生位置
@@ -304,6 +306,12 @@ namespace Random
             get { return sn; }
             set { sn = value; }
         }
-        
+        private int abs;
+
+        public int Abs
+        {
+            get { return abs; }
+            set { abs = value; }
+        }
     }
 }
