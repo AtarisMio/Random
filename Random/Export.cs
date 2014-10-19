@@ -57,7 +57,8 @@ namespace Random
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (!checkBox1.Checked)
-                dateselect.ClearSelected();
+                for (int j = 0; j < dateselect.Items.Count; j++)
+                    dateselect.SetItemChecked(j, false); 
             else
                 for (int j = 0; j < dateselect.Items.Count; j++)
                     dateselect.SetItemChecked(j, true);  
