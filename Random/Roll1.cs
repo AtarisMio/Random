@@ -149,7 +149,8 @@ namespace Random
                     ArrayList result = instance.get(2);
                     if (result.Contains(-1))
                     {
-                        MessageBox.Show("剩余学生不足！");
+                        while (MessageBox.Show(this, "剩余学生不足！", "提示", MessageBoxButtons.OK) != DialogResult.OK) ;
+                        
                         button1.PerformClick();
                         break;
                     }
