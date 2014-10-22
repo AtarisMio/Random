@@ -53,6 +53,8 @@ namespace Random
         private void 打开OToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog1.InitialDirectory = Application.StartupPath;
+            openFileDialog1.Title = "导入";
+            openFileDialog1.FileName = "";
             openFileDialog1.CheckFileExists = true;
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -71,9 +73,14 @@ namespace Random
                     cbi.Value = Application.StartupPath + @"\" + openFileDialog1.SafeFileName;
                     fileselect.Items.Add(cbi);
                     fileselect.SelectedIndex = 0;
+                    MessageBox.Show("导入成功");
+                }
+                else
+                {
+                    MessageBox.Show("您选择的文件为正在工作的文件，不能导入");
                 }
                 button1.Enabled = true;
-                MessageBox.Show("导入成功");
+                
             }
             //DirectoryInfo d = new DirectoryInfo(Application.StartupPath);
             //SortedList<String, String> FileList = GetCurrentDirAllxls(d);
@@ -97,8 +104,8 @@ namespace Random
             String snum = ConfigurationManager.AppSettings["randomnum"];
             if (snum != null && snum != "")
                 num = int.Parse(snum);
-            DirectoryInfo d = new DirectoryInfo(Application.StartupPath);
-            FileList = GetCurrentDirAllxls(d, FileList);
+            //DirectoryInfo d = new DirectoryInfo(Application.StartupPath);
+            FileList = GetCurrentDirAllxls(Application.StartupPath, FileList);
             foreach (KeyValuePair<string, string> item in FileList)
             {
                 ComboBoxItem cbi = new ComboBoxItem();
@@ -121,26 +128,13 @@ namespace Random
             if (fileselect.Items.Count == 0)
                 button1.Enabled = false;
         }
-        private SortedList<String, String> GetCurrentDirAllxls(DirectoryInfo dir,SortedList<String, String> FileList)
+        private SortedList<String, String> GetCurrentDirAllxls(String dir,SortedList<String, String> FileList)
         {
-            if ((dir.Attributes & FileAttributes.System) == FileAttributes.System) 
-                return FileList;
-            //MessageBox.Show(dir.Attributes.ToString());
-            FileInfo[] allFile = dir.GetFiles("*.xls");
-            try
+            String[] allFile = Directory.GetFileSystemEntries(dir, "*.xls");
+            foreach (String fi in allFile)
             {
-                foreach (FileInfo fi in allFile)
-                {
-                    if (!fi.Name.EndsWith("_点名记录.xls"))
-                        FileList.Add(fi.Name, fi.FullName);
-                }
-            }
-            catch { }
-            DirectoryInfo[] allDir = dir.GetDirectories();
-            foreach (DirectoryInfo d in allDir)
-            {
-                if ((d.Attributes & FileAttributes.System) == FileAttributes.System) 
-                    FileList = GetCurrentDirAllxls(d, FileList);
+                if (!fi.EndsWith("_点名记录.xls"))
+                    FileList.Add(fi.Substring(fi.LastIndexOf('\\') + 1), fi);
             }
             return FileList;
         }
