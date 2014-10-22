@@ -52,7 +52,7 @@ namespace Random
                 if (absence != null)
                 {
                     button2.Enabled = true;
-                    foreach (int sn in absence)
+                    foreach (long sn in absence)
                     {
                         absinfo.Add(new info(cell.getstudentname(sn), sn, cell.getabsencenum(sn)));
                     }
@@ -82,6 +82,7 @@ namespace Random
         private void Absenceform_FormClosed(object sender, FormClosedEventArgs e)
         {
             MainForm form = (MainForm)this.Owner;
+            
             form.Visible = true;
             this.pic1.Dispose();
             this.pic2.Dispose();
@@ -176,15 +177,15 @@ namespace Random
     public class info
     {
         private String name;
-        private int sn;
+        private long sn;
         private int time;
-        public info(String name, int sn, int time)
+        public info(String name, long sn, int time)
         {
             this.name = name;
             this.sn = sn;
             this.time = time;
         }
-        public int getsn()
+        public long getsn()
         {
             return sn;
         }

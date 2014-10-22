@@ -93,6 +93,7 @@
             // 
             // pictureBox1
             // 
+            this.pictureBox1.ErrorImage = global::Random.Properties.Resources.error;
             this.pictureBox1.Location = new System.Drawing.Point(19, 20);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(120, 120);
@@ -151,6 +152,7 @@
             // 
             // pictureBox2
             // 
+            this.pictureBox2.ErrorImage = global::Random.Properties.Resources.error;
             this.pictureBox2.Location = new System.Drawing.Point(19, 20);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(120, 120);

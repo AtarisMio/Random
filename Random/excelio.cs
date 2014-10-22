@@ -16,7 +16,7 @@ namespace Random
         private Workbook workbook = null;
         private Cells cells = null;
         private static excelio instance = null;
-        private SortedList<int,String> namelist = new SortedList<int ,String>();
+        private SortedList<long,String> namelist = new SortedList<long ,String>();
         private String classname;
 
 
@@ -45,7 +45,7 @@ namespace Random
         }
 
 
-        public SortedList<int, String> readfile()//从文档中读取出所有学生姓名，并添加到namelist中
+        public SortedList<long, String> readfile()//从文档中读取出所有学生姓名，并添加到namelist中
         {
             if (namelist.Count != 0)
                 namelist.Clear();
@@ -53,7 +53,7 @@ namespace Random
             {
                 for (int i = 6; i < cells.MaxDataRow + 1; i++)
                 {
-                    int sn = int.Parse(cells[i, 2].StringValue.Trim());
+                    long sn = long.Parse(cells[i, 2].StringValue.Trim());
                     String name = cells[i, 3].StringValue.Trim();
                     namelist.Add(sn, name);
                     
@@ -63,7 +63,7 @@ namespace Random
             {
                 for (int i = 6; i < cells.MaxDataRow; i++)
                 {
-                    int sn = int.Parse(cells[i, 2].StringValue.Trim());
+                    long sn = long.Parse(cells[i, 2].StringValue.Trim());
                     String name = cells[i, 3].StringValue.Trim();
                     namelist.Add(sn, name);
                 }
@@ -71,19 +71,19 @@ namespace Random
             return namelist;
         }
 
-        public int getabsencenum(int sn, int i = 9, int j = -1)//得到学号为sn的学生缺勤次数
+        public int getabsencenum(long sn, int i = 0, int j = -1)//得到学号为sn的学生缺勤次数
         {
             int num = 0;
             int row = 0;
             row = find(sn)[0];
-            for (; i < (j == -1 ? cells.MaxDataColumn : j); i++)
+            for (; i <= (j == -1 ? cells.MaxDataColumn : j); i++)
             {
-                if (cells[row, i].StringValue == "A")
+                if (cells[row, i + 9].StringValue == "A")
                     num++;
             }
             return num;
         }
-        public ArrayList getabstime(int sn)//得到学号为sn的学生缺勤列表
+        public ArrayList getabstime(long sn)//得到学号为sn的学生缺勤列表
         {
             ArrayList time = new ArrayList();
             int row = find(sn)[0];
@@ -116,13 +116,13 @@ namespace Random
         public ArrayList getabsstu(int Column, int k = 0, int j = -1)//得到第Column列中缺勤学生的列表
         {
             ArrayList result = new ArrayList();
-            for (int i = k; i < (j == -1 ? cells.MaxDataColumn : j); i++)
+            for (int i = 6; i < cells.MaxDataRow; i++)
             {
                 if (cells[i, Column].StringValue == "A")
                 {
                     student std = new student();
                     std.Serial = int.Parse(cells[i, 1].StringValue);
-                    std.Sn = int.Parse(cells[i, 2].StringValue);
+                    std.Sn = long.Parse(cells[i, 2].StringValue);
                     std.Name = cells[i, 3].StringValue;
                     std.Abs = getabsencenum(std.Sn, k, j);
                     result.Add(std);
@@ -151,7 +151,7 @@ namespace Random
                 row = cells.MaxDataRow;
             }
             cells[row, 2].PutValue("A为缺席");
-            cells[row, 8 + i].PutValue(DateTime.Now.Year + "年" + DateTime.Now.Month + "月" + DateTime.Now.Day + "日" + DateTime.Now.Hour + "时");
+            cells[row, 8 + i].PutValue(DateTime.Now.Year + "年" + DateTime.Now.Month + "月" + DateTime.Now.Day + "日" + DateTime.Now.Hour + "时" + DateTime.Now.Minute + "分");
             
         }
 
@@ -220,9 +220,10 @@ namespace Random
             DataSorter sorter = workbook.DataSorter;
             sorter.Order1 = Aspose.Cells.SortOrder.Ascending;
             sorter.Key1 = key;
+            sorter.Key2 = 0;
             sorter.Sort(cells, 2, 0, cells.MaxDataRow, cells.MaxDataColumn);
         }
-        public int[] find(int sn)//找到学号为sn的学生位置
+        public int[] find(long sn)//找到学号为sn的学生位置
         {
             Cell temp = cells.Find(sn.ToString(), null, new FindOptions());
             if (temp == null)
@@ -232,7 +233,7 @@ namespace Random
             p[1] = temp.Column;
             return p;
         }
-        public String getstudentname(int sn)
+        public String getstudentname(long sn)
         {
             int row = find(sn)[0];
             return cells[row, 3].StringValue;
@@ -250,7 +251,7 @@ namespace Random
         }
 
 
-        public bool mark(int sn)//标记学号为sn的学生在第i次点名缺课
+        public bool mark(long sn)//标记学号为sn的学生在第i次点名缺课
         {
             int i = getweek();
             int[] position = find(sn);
@@ -299,9 +300,9 @@ namespace Random
             get { return serial; }
             set { serial = value; }
         }
-        private int sn;
+        private long sn;
 
-        public int Sn
+        public long Sn
         {
             get { return sn; }
             set { sn = value; }

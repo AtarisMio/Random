@@ -48,27 +48,13 @@ namespace Random
 
         private void dateselect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (dateselect.CheckedItems.Count == list)
-                checkBox1.Checked = true;
-            if (dateselect.CheckedItems.Count < list)
-                checkBox1.Checked = false;
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!checkBox1.Checked)
-                for (int j = 0; j < dateselect.Items.Count; j++)
-                    dateselect.SetItemChecked(j, false); 
-            else
-                for (int j = 0; j < dateselect.Items.Count; j++)
-                    dateselect.SetItemChecked(j, true);  
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             ArrayList abssttdbydate = new ArrayList();
             int first = dateselect.CheckedIndices[0];
-            int last = dateselect.CheckedIndices.Count - 1;
+            int last = dateselect.CheckedIndices[0] + dateselect.CheckedIndices.Count - 1;
             foreach(ComboBoxItem date in dateselect.CheckedItems)
             {
                 ArrayList absstdbysn = new ArrayList();
@@ -76,7 +62,10 @@ namespace Random
                 {
                     absstdbysn.Add(st);
                 }
-                abssttdbydate.Add(absstdbysn);
+                if (absstdbysn.Count != 0)
+                {
+                    abssttdbydate.Add(new KeyValuePair<ArrayList,KeyValuePair<String,int>>(absstdbysn,new KeyValuePair<String,int>(date.Text,dateselect.Items.IndexOf(date))));
+                }
             }//将旧表信息提取
             Workbook workbook = cell.newworkbook();
             cell = cell.newcells(workbook);
@@ -85,10 +74,12 @@ namespace Random
             cell.setstr("学号", 1, 1);
             cell.setstr("姓名", 1, 2);
             cell.setstr("缺勤次数", 1, 3);
-            foreach(ArrayList absstdbysn in abssttdbydate)
+            foreach (KeyValuePair<ArrayList, KeyValuePair<String, int>> absstdbysns in abssttdbydate)
             {
-                
-                cell.setstr("第" + (k - 2) + "次", 0, k+1);
+                ArrayList absstdbysn = absstdbysns.Key;
+                KeyValuePair<String, int> dates = absstdbysns.Value;
+                cell.setstr("第" + (dates.Value + 1) + "次", 0, k + 1);
+                cell.setstr(dates.Key, 1, k + 1);
                 foreach(student st in absstdbysn)
                 {
                     if (cell.find(st.Sn) != null)
@@ -115,14 +106,15 @@ namespace Random
                 k++;
             }
             k = 0;
-            foreach (ComboBoxItem date in dateselect.CheckedItems)
+            /*foreach (ComboBoxItem date in dateselect.CheckedItems)
             {
                 cell.setstr(date.Text, 1, k+4);
                 k++;
-            }
+            }*/
             cell.sort(3);
-            cell.save(Application.StartupPath+"\\"+classname+"点名记录.xls");
+            cell.save(Application.StartupPath+"\\"+classname+"_点名记录.xls");
             MessageBox.Show("导出成功");
+            cell.openfile(filePath);
             this.Close();
         }
         //private void button1_Click(object sender, EventArgs e)
@@ -172,6 +164,46 @@ namespace Random
         {
             MainForm form = (MainForm)this.Owner;
             form.Visible = true;
+        }
+
+        private void checkBox1_Click(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+                for (int j = 0; j < dateselect.Items.Count; j++)
+                    dateselect.SetItemChecked(j, true);
+            else
+                for (int j = 0; j < dateselect.Items.Count; j++)
+                    dateselect.SetItemChecked(j, false);
+        }
+
+        private void Export_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (dateselect.CheckedItems.Count == list)
+                checkBox1.CheckState = CheckState.Checked;
+            else
+            {
+                if (dateselect.CheckedItems.Count == 0)
+                    checkBox1.CheckState = CheckState.Unchecked;
+                else
+                {
+                    checkBox1.CheckState = CheckState.Indeterminate;
+                }
+            }
+        }
+
+        private void dateselect_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (dateselect.CheckedItems.Count == list)
+                checkBox1.CheckState = CheckState.Checked;
+            else
+            {
+                if (dateselect.CheckedItems.Count == 0)
+                    checkBox1.CheckState = CheckState.Unchecked;
+                else
+                {
+                    checkBox1.CheckState = CheckState.Indeterminate;
+                }
+            }
         }
 
         

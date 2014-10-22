@@ -50,7 +50,6 @@ namespace Random
         {
             InitializeComponent();
         }
-
         private void 打开OToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog1.InitialDirectory = Application.StartupPath;
@@ -73,6 +72,7 @@ namespace Random
                     fileselect.Items.Add(cbi);
                     fileselect.SelectedIndex = 0;
                 }
+                button1.Enabled = true;
                 MessageBox.Show("导入成功");
             }
             //DirectoryInfo d = new DirectoryInfo(Application.StartupPath);
@@ -131,7 +131,7 @@ namespace Random
             {
                 foreach (FileInfo fi in allFile)
                 {
-                    if (!fi.Name.StartsWith("201"))
+                    if (!fi.Name.EndsWith("_点名记录.xls"))
                         FileList.Add(fi.Name, fi.FullName);
                 }
             }
@@ -212,11 +212,15 @@ namespace Random
 
         private void button1_Click(object sender, EventArgs e)
         {
+            excelio cell = excelio.getInstance();
             if(absence!=null)
                 absence.Clear();
             String filepath = (fileselect.SelectedItem as ComboBoxItem).Value.ToString();
             if (classname != null)
+            {
+                cell.openfile(filepath);
                 filepath = filepath.Substring(0, filepath.LastIndexOf("\\") + 1) + Encoding.UTF8.GetString(System.Convert.FromBase64String(classname));
+            }
             if (num == 1)
             {
                 Roll1 form = new Roll1();
@@ -224,7 +228,6 @@ namespace Random
                 form.excelpath((fileselect.SelectedItem as ComboBoxItem).Value.ToString());
                 form.Owner = this;
                 form.Show();
-                this.Visible = false;
             }
             if (num == 2)
             {
@@ -233,7 +236,6 @@ namespace Random
                 form.excelpath((fileselect.SelectedItem as ComboBoxItem).Value.ToString());
                 form.Owner = this;
                 form.Show();
-                this.Visible = false;
             }
             if (num == 4)
             {
@@ -242,7 +244,6 @@ namespace Random
                 form.excelpath((fileselect.SelectedItem as ComboBoxItem).Value.ToString());
                 form.Owner = this;
                 form.Show();
-                this.Visible = false;
             }
         }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:不要多次释放对象")]
@@ -267,13 +268,17 @@ namespace Random
 
         private void button2_Click(object sender, EventArgs e)
         {
+            excelio cell = excelio.getInstance();
             if (absence == null)
                 absence = new ArrayList();
             Absenceform form = new Absenceform();
             form.Owner = this;
             form.absset(absence);
             if (fileselect.Items.Count != 0)
+            {
+                cell.openfile((fileselect.SelectedItem as ComboBoxItem).Value.ToString());
                 form.excelpath((fileselect.SelectedItem as ComboBoxItem).Value.ToString());
+            }
             this.Visible = false;
             form.Show();
         }

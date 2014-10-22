@@ -37,13 +37,14 @@
             // 
             // dateselect
             // 
-            this.dateselect.FormattingEnabled = true;
+            this.dateselect.CheckOnClick = true;
             this.dateselect.Location = new System.Drawing.Point(12, 39);
             this.dateselect.MinimumSize = new System.Drawing.Size(260, 4);
             this.dateselect.Name = "dateselect";
             this.dateselect.Size = new System.Drawing.Size(260, 148);
             this.dateselect.TabIndex = 0;
-            this.dateselect.SelectedIndexChanged += new System.EventHandler(this.dateselect_SelectedIndexChanged);
+            this.dateselect.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dateselect_KeyUp);
+            this.dateselect.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Export_MouseUp);
             // 
             // label1
             // 
@@ -74,7 +75,7 @@
             this.checkBox1.TabIndex = 1;
             this.checkBox1.Text = "全选";
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox1.Click += new System.EventHandler(this.checkBox1_Click);
             // 
             // Export
             // 
@@ -95,6 +96,7 @@
             this.Text = "导出";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Export_FormClosed);
             this.Load += new System.EventHandler(this.Export_Load);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Export_MouseUp);
             this.ResumeLayout(false);
             this.PerformLayout();
 

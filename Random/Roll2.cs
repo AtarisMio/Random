@@ -21,7 +21,7 @@ namespace Random
         private ArrayList absence = new ArrayList();
         private String filePath;
         private static String classname;
-        SortedList<int, String> namelist;
+        SortedList<long, String> namelist;
         private int studentnum;
         private delegate void DelegateFunction();
         public bool numset(int i)
@@ -67,13 +67,13 @@ namespace Random
         {
             if (checkBox1.Checked)
             {
-                absence.Add(int.Parse(label1.Text));
-                cell.mark(int.Parse(label1.Text));
+                absence.Add(long.Parse(label1.Text));
+                cell.mark(long.Parse(label1.Text));
             }
             if (checkBox2.Checked)
             {
-                absence.Add(int.Parse(label3.Text));
-                cell.mark(int.Parse(label3.Text));
+                absence.Add(long.Parse(label3.Text));
+                cell.mark(long.Parse(label3.Text));
             }
             if (thd1 != null) if (thd1.IsAlive)
                 thd1.Abort();
@@ -90,12 +90,14 @@ namespace Random
 
         private void Roll2_Load(object sender, EventArgs e)
         {
+            
             checkBox1.Enabled = false;
             checkBox2.Enabled = false;
             cell = excelio.getInstance();
             cell.openfile(filePath);
             namelist = cell.readfile();
             studentnum = cell.getstudentnum();
+            this.Owner.Visible = false;
             //String classname = cell.getclassname();
 
             //int[] position = cell.find(1131000078);
@@ -108,21 +110,21 @@ namespace Random
         {
             if (checkBox1.Checked)
             {
-                absence.Add(int.Parse(label1.Text));
-                cell.mark(int.Parse(label1.Text));
+                absence.Add(long.Parse(label1.Text));
+                cell.mark(long.Parse(label1.Text));
             }
             if (checkBox2.Checked)
             {
-                absence.Add(int.Parse(label3.Text));
-                cell.mark(int.Parse(label3.Text));
+                absence.Add(long.Parse(label3.Text));
+                cell.mark(long.Parse(label3.Text));
             }
             if (flag)
             {
                 if (label1.Text != "学号")
                 {
                     Random instance = Random.getInstance();
-                    instance.setnumber(namelist.IndexOfKey(int.Parse(label1.Text)));
-                    instance.setnumber(namelist.IndexOfKey(int.Parse(label3.Text)));
+                    instance.setnumber(namelist.IndexOfKey(long.Parse(label1.Text)));
+                    instance.setnumber(namelist.IndexOfKey(long.Parse(label3.Text)));
                 }
                 checkBox1.Checked = false;
                 checkBox2.Checked = false;
@@ -164,7 +166,7 @@ namespace Random
                         button1.PerformClick();
                         break;
                     }
-                    int sn = namelist.Keys[(int)result[0]];
+                    long sn = namelist.Keys[(int)result[0]];
                     label1.Text = sn.ToString();
                     label2.Text = namelist[sn];
                     label5.Text = "缺勤" + cell.getabsencenum(sn) + "次";
